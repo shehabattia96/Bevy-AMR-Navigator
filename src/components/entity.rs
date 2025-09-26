@@ -1,0 +1,23 @@
+use bevy::prelude::*;
+
+use crate::components::{behaviors::InCollision, physics::{Acceleration, Position, Velocity}};
+
+#[derive(Component)]
+pub struct Entity {
+    pub id: u32,
+    pub position: Position,
+    pub velocity: Velocity,
+    pub acceleration: Acceleration,
+    pub bounding_box: Vec3,
+    pub in_collision: InCollision,
+}
+
+
+#[derive(Component,)]
+pub struct AMR(Entity);
+
+#[derive(Component)]
+pub struct Human(Entity);
+
+#[derive(Component)]
+pub struct Obstacle(Entity);

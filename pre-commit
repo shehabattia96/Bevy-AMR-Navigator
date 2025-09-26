@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# ln -s $(pwd)/pre-commit .git/hooks/pre-commit to activate.
+
+set -e 
+
+if ! cargo build; then
+  echo "Cargo build failed."
+  exit 1
+fi
