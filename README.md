@@ -56,7 +56,10 @@
 
 After implementing it, it works decently for how simple it is. Here's a [video](./human_avoidance.mp4):
 
-<video src="./human_avoidance.mp4" ></video>
+
+https://github.com/user-attachments/assets/265e6400-55f9-4aa6-bf28-eb35626c8253
+
+
 
 ## Future work
 
