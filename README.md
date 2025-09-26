@@ -8,8 +8,6 @@
 
 - The user can click anywhere in the scene to set a new goal for the AMR. The goal is broadcast using Bevy's eventing system.
 
-- This is being developed on an M3 Pro with 18GB of RAM.
-
 - I initialized the project using `cargo init && cargo add bevy`. I add the `DefaultPlugins` to get basic Bevy functionality.
 
 - When I was about to make my first commit, I realized I needed to check if the project builds before I commit, so I added a quick [pre-commit](./pre-commit) script with instrucitons to soft link it to `.git/hooks/pre-commit` in the file. I also chmod +x'd it so it's ready to go checked-in.
@@ -21,13 +19,16 @@
 - I run the project using `cargo run`. The empty window opens and we're averaging 55 FPS.
 
 - Time to create some components. For starters these are all the ones I can think of right away, Bevy says to keep everything modular, so we'll create physics units too:
-    Entities:
+
+  Entities:
     - AMR
     - Obstacle (Wall, furniture, etc..)
     - Human
-    Behavior:
+    
+  Behavior:
     - Goal
-    Physics:
+    
+  Physics:
     - Position
     - Velocity
     - Acceleration -> Maybe this one is overkill for now. Might not need it.
