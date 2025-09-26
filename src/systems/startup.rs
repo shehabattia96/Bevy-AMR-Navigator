@@ -33,13 +33,24 @@ pub fn startup(
 
     setup_world(&mut commands, &mut meshes, &mut materials,);
 
-    let position = Position(Vec3::new(0.0, 0.0, 0.0));
+    // Spawn first AMR
+    let position = Position(Vec3::new(-5.0, 0.0, 0.0));
     let size = Vec3::new(3.0, 2.5, 1.5);
     let position_off_ground = position.0 + Vec3::new(0.0, size[1] / 2.0, 0.0);
     spawn_amr(&mut commands, &mut meshes, &mut materials, Position(position_off_ground), Color::srgb(0.8, 0.2, 0.2), size);
 
-    
+    // Spawn humans as obstacles
     let position = Position(Vec3::new(2.0, 0.0, 2.0));
+    let size =Vec2::new(0.3, 2.0);
+    let position_off_ground = position.0 + Vec3::new(0.0, size[1] / 2.0, 0.0);
+    spawn_human(&mut commands, &mut meshes, &mut materials, Position(position_off_ground), Color::srgb(0.2, 0.4, 0.8), size);
+
+    let position = Position(Vec3::new(4.0, 0.0, 4.0));
+    let size =Vec2::new(0.3, 2.0);
+    let position_off_ground = position.0 + Vec3::new(0.0, size[1] / 2.0, 0.0);
+    spawn_human(&mut commands, &mut meshes, &mut materials, Position(position_off_ground), Color::srgb(0.2, 0.4, 0.8), size);
+
+    let position = Position(Vec3::new(1.0, 0.0, 4.0));
     let size =Vec2::new(0.3, 2.0);
     let position_off_ground = position.0 + Vec3::new(0.0, size[1] / 2.0, 0.0);
     spawn_human(&mut commands, &mut meshes, &mut materials, Position(position_off_ground), Color::srgb(0.2, 0.4, 0.8), size);

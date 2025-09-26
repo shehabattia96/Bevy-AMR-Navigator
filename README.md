@@ -48,6 +48,19 @@ I create a components folder and add them in.
 
 I went a step further and assigned the goal by clicking the mouse. I added the nice ground circle visual from the example. The robot is moving towards a goal, just not the right one atm. In retrospect, the mouse click right now uses window position im pixels, which needs to be converted to world position.
 
+- The last step is to implement collision detection and avoidance. When an object is a certain distance from the AMR, we'll apply a simple avoidance vector by taking the direction to the object and creating a vector perpendicular to it. We'll also ignore applying that avoidance vector if the obstacle is behind us, otherwise we get stuck adjacent to the object we're trying to avoid.
+
+After implementing it, it works decently for how simple it is. Here's a video:
+
+<video src="./human_avoidance.mp4" />
+
+## Future work
+
+- Implement obstacles such as walls, furniture, etc...
+- Improve path planning so that it's not so simple. Right now collision avoidance iterates over every known human or object and this is expensive, maybe a structure like a kdtree would be better.
+- Make the humans move around on their own.
+- Spawn thousands of AMR's and Humans and see how it performs.
+- I would also like to learn more about Bevy traits, I think there are many that I still have not used.
 
 ## Misc notes
 - Standards are important: https://bevy-cheatbook.github.io/fundamentals/coords.html
