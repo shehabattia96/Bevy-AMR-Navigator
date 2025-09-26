@@ -31,8 +31,7 @@ fn main() {
             systems::goal_event_handler::on_mouse_click_broadcast_goal,
             systems::visuals::draw_cursor,
             
-            (systems::amr_controller::on_amr_goal_update_set_velocity,
-            systems::amr_controller::amr_move_to_goal,).chain()
+            systems::amr_controller::amr_move_to_goal
 
         ))
         .run();

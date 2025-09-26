@@ -4,23 +4,27 @@ use crate::components::behaviors::Goal;
 use crate::components::entity::{Ground, AMR};
 use crate::components::physics::Position;
 use crate::events::goal::GoalEvent;
+use crate::systems::visuals::get_mouse_position_in_world_coordinates;
 
 pub fn on_mouse_click_broadcast_goal(
     mut goal_events: EventWriter<GoalEvent>,
     mouse_input: Res<ButtonInput<MouseButton>>,
+    camera_query: Single<(&Camera, &GlobalTransform)>,
+    ground: Single<&GlobalTransform, With<Ground>>,
     windows: Query<&Window>,
 ) {
-    let Ok(windows) = windows.single() else {
-        return;
-    };
+    let point = get_mouse_position_in_world_coordinates(camera_query, &ground, &windows);
 
-    let Some(cursor_position) = windows.cursor_position() else {
+    if point.is_none() {
         return;
-    };
+    }
+
+    let point = point.unwrap();
+
 
     if mouse_input.just_pressed(MouseButton::Left) {
         goal_events.write(GoalEvent(Goal {
-            position: Position{0: Vec3::new(cursor_position.x, 0.0, cursor_position.y)},
+            position: Position{0: point},
             radius: 1.0
         }));
     }

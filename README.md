@@ -46,7 +46,7 @@ I create a components folder and add them in.
 
 - Next I'll make the AMR move towards the goal. I'll use Bevy's [eventing system](https://bevy-cheatbook.github.io/programming/events.html) to broadcast a goal. I'll add a simple vector subtraction from current position to the goal. We'll ignore obstacles for now. 
 
-I went a step further and assigned the goal by clicking the mouse. I added the nice ground circle visual from the example. The robot is moving towards a goal, just not the right one atm.
+I went a step further and assigned the goal by clicking the mouse. I added the nice ground circle visual from the example. The robot is moving towards a goal, just not the right one atm. In retrospect, the mouse click right now uses window position im pixels, which needs to be converted to world position.
 
 
 ## Misc notes

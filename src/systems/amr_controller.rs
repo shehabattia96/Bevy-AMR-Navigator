@@ -3,13 +3,6 @@ use crate::components::{entity::AMR};
 use bevy::prelude::*;
 
 
-pub fn on_amr_goal_update_set_velocity(mut amr_query: Query<(&mut AMR)>) {
-    for (mut amr) in amr_query.iter_mut() {
-        amr.0.velocity.0 = get_vector_to_goal(&amr).normalize() * amr.0.max_velocity;
-
-        println!("AMR {:?} velocity set to: {:?}", amr.0.id, amr.0.velocity.0);
-    }
-}
 
 pub fn amr_move_to_goal(mut amr_query: Query<(&mut AMR, &mut Transform)>, time: Res<Time>) {
     for (mut amr, mut transform) in amr_query.iter_mut() {
@@ -19,7 +12,15 @@ pub fn amr_move_to_goal(mut amr_query: Query<(&mut AMR, &mut Transform)>, time: 
             return;
         }
 
-        let distance = get_vector_to_goal(&amr).length();
+        println!("AMR {:?} is moving to goal: {:?}, position: {:?}", amr.0.id, amr.1.unwrap().position.0, amr.0.position.0 );
+
+        let mut vector_to_goal = get_vector_to_goal(&amr);
+
+        vector_to_goal.y = 0.0;
+
+        amr.0.velocity.0 =  vector_to_goal.normalize()* amr.0.max_velocity;
+
+        let distance = vector_to_goal.length();
 
         let is_reached = is_reached_goal(distance, &amr.1.unwrap());
 
