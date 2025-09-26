@@ -40,9 +40,13 @@ I create a components folder and add them in.
     materials: &mut ResMut<Assets<StandardMaterial>>,
     ```
 
-- My spawners were working but were not showing up. I needed to add a camera. I added light and a ground plane for good measure.
+- My spawners were working but were not showing up. I needed to add a camera. I added light and a ground plane for good measure. I used this example: https://bevy.org/examples/3d-rendering/3d-viewport-to-world/
 
 - I found that the position I was supplying to my components was not being applied to the spawn transform, so I added that in too.
+
+- Next I'll make the AMR move towards the goal. I'll use Bevy's [eventing system](https://bevy-cheatbook.github.io/programming/events.html) to broadcast a goal. I'll add a simple vector subtraction from current position to the goal. We'll ignore obstacles for now. 
+
+I went a step further and assigned the goal by clicking the mouse. I added the nice ground circle visual from the example. The robot is moving towards a goal, just not the right one atm.
 
 
 ## Misc notes
@@ -50,5 +54,5 @@ I create a components folder and add them in.
     - Y is up/down, Z is in/out of the screen.
     - Origin top left of screen.
 - Bevy quickstart has a lot of neat optimizations notes. For example, link time optimizations for release builds, and notes that dev builds could take long and to add some configs to Cargo.toml. I don't think it's necessary for now, but will follow their instructions if it starts becoming a problem.
-- Schdules: Update for UI and input handling. FixedUpdate for Physics and Networking. bevy-cheatbook is the best: https://bevy-cheatbook.github.io/programming/schedules.html 
+- Schdules: Update for UI and input handling. FixedUpdate for Physics and Networking. bevy-cheatbook is the best: https://bevy-cheatbook.github.io/programming/schedules.html Edit: nevermind it's so outdated for so many tutorials.
 - SRGB vs LinearRGB: https://medium.com/@Jacob_Bell/programmers-guide-to-gamma-correction-4c1d3a1724fb 

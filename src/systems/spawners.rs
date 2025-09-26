@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 use bevy::asset::uuid::Uuid;
-use crate::components::{behaviors::{InCollision}, entity::{CollidableEntity, Human, AMR}, physics::{Acceleration, Position, Velocity}};
+use crate::components::{behaviors::{InCollision}, entity::{DynamicEntity, Human, AMR}, physics::{Acceleration, Position, Velocity}};
 
 pub fn spawn_amr(
     commands: &mut Commands,
@@ -12,14 +12,15 @@ pub fn spawn_amr(
 ) {
     // we'll always spawn as a cuboid, so we only need to pass in position, size and color
     commands.spawn((
-        AMR(CollidableEntity {
+        AMR(DynamicEntity {
             id: Uuid::new_v4().as_u128(),
             position: position,
             bounding_box: size,
             velocity: Velocity(Vec3::new(0.0, 0.0, 0.0)),
             acceleration: Acceleration(Vec3::new(0.0, 0.0, 0.0)),
             in_collision: InCollision(false),
-        }),
+            max_velocity: 3.0
+        }, None),
         Mesh3d(meshes.add(Cuboid::new(size[0], size[1], size[2]))),
         MeshMaterial3d(materials.add(StandardMaterial::from_color(material))),
         Transform::from_translation(position.0),
@@ -35,13 +36,14 @@ pub fn spawn_human(
 ) {
     // size is radius, height
     commands.spawn((
-        Human(CollidableEntity {
+        Human(DynamicEntity {
             id: Uuid::new_v4().as_u128(),
             position: position,
             bounding_box: Vec3::new(size[0], size[0], size[1]),
             velocity: Velocity(Vec3::new(0.0, 0.0, 0.0)),
             acceleration: Acceleration(Vec3::new(0.0, 0.0, 0.0)),
             in_collision: InCollision(false),
+            max_velocity: 1.0
         }),
         Mesh3d(meshes.add(Capsule3d::new(size[0], size[1]))),
         MeshMaterial3d(materials.add(StandardMaterial::from_color(material))),

@@ -1,13 +1,11 @@
 use bevy::prelude::*;
-
 use crate::components::physics::Position;
-
-#[derive(Component)]
+#[derive(Component, Clone, Copy)]
 pub struct Goal {
     pub position: Position,
-    pub radius:f32,
-    pub is_reached: bool,
+    pub radius: f32,
 }
+
 
 #[derive(Component)]
 pub struct InCollision(pub bool);

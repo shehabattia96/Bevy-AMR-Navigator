@@ -2,7 +2,10 @@ use bevy::diagnostic::{FrameTimeDiagnosticsPlugin, LogDiagnosticsPlugin};
 use bevy::prelude::*;
 
 mod components;
+mod events;
 mod systems;
+
+use events::goal::GoalEvent;
 
 fn main() {
     App::new()
@@ -19,8 +22,18 @@ fn main() {
                 LogDiagnosticsPlugin::default(),
             )
         )
+        .add_event::<GoalEvent>()
         .add_systems(Startup, (
             systems::startup::startup,
+        ))
+        .add_systems(Update, (
+            systems::goal_event_handler::goal_event_handler,
+            systems::goal_event_handler::on_mouse_click_broadcast_goal,
+            systems::visuals::draw_cursor,
+            
+            (systems::amr_controller::on_amr_goal_update_set_velocity,
+            systems::amr_controller::amr_move_to_goal,).chain()
+
         ))
         .run();
 }
