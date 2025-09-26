@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 use bevy::asset::uuid::Uuid;
-use crate::components::{behaviors::InCollision, entity::{CollidableEntity, Human, AMR}, physics::{Acceleration, Position, Velocity}};
+use crate::components::{behaviors::{InCollision}, entity::{CollidableEntity, Human, AMR}, physics::{Acceleration, Position, Velocity}};
 
 pub fn spawn_amr(
     commands: &mut Commands,
@@ -22,6 +22,7 @@ pub fn spawn_amr(
         }),
         Mesh3d(meshes.add(Cuboid::new(size[0], size[1], size[2]))),
         MeshMaterial3d(materials.add(StandardMaterial::from_color(material))),
+        Transform::from_translation(position.0),
     ));
 }
 pub fn spawn_human(
@@ -44,5 +45,6 @@ pub fn spawn_human(
         }),
         Mesh3d(meshes.add(Capsule3d::new(size[0], size[1]))),
         MeshMaterial3d(materials.add(StandardMaterial::from_color(material))),
+        Transform::from_translation(position.0),
     ));
 }

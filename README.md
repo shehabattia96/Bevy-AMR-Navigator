@@ -40,6 +40,9 @@ I create a components folder and add them in.
     materials: &mut ResMut<Assets<StandardMaterial>>,
     ```
 
+- My spawners were working but were not showing up. I needed to add a camera. I added light and a ground plane for good measure.
+
+- I found that the position I was supplying to my components was not being applied to the spawn transform, so I added that in too.
 
 
 ## Misc notes

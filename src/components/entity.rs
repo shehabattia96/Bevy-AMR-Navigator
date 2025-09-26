@@ -21,3 +21,7 @@ pub struct Human(pub CollidableEntity);
 
 #[derive(Component)]
 pub struct Obstacle(pub CollidableEntity);
+
+
+#[derive(Component)]
+pub struct Ground;
