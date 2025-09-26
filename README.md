@@ -1,14 +1,18 @@
-# AMR navigation while avoiding obstacles and moving humans
+# AMR navigation while avoiding obstacles and humans
 
-For this project, I am using [Bevy](https://bevy.org/), a game engine written in Rust.
+- This project uses [Bevy](https://bevy.org/), a game engine written in Rust.
 
-The goal is to create one or more Autonomous Mobile Robots (AMR) in the scene that can navigate while avoiding obstacles and moving humans. This movement is very simple just a vector subtraction from current position to the goal, if there is an obstacle, move around it by clearing its size (privedged information from the simulation for now).
+- The goal of this project is to create one or more Autonomous Mobile Robots (AMR) in the scene that can navigate while avoiding obstacles and humans. 
 
-- This is being built on an M3 Pro with 18GB of RAM.
+- Path planning is a very simple vector subtraction from current position to the goal. If there is an obstacle within a specified range of the AMR, it will attempt to move around it by moving in a vector perpendicular to the obstacle.
 
-- I initialize the project using `cargo init && cargo add bevy`. I add the `DefaultPlugins` to get basic Bevy functionality.
+- The user can click anywhere in the scene to set a new goal for the AMR. The goal is broadcast using Bevy's eventing system.
 
-- When I came to do my first commit, I realized I needed to check if the project builds before I commit, so I added a quick [pre-commit](./pre-commit) script with instrucitons to soft link it to `.git/hooks/pre-commit` in the file. I also chmod +x'd it so it's ready to go checked-in.
+- This is being developed on an M3 Pro with 18GB of RAM.
+
+- I initialized the project using `cargo init && cargo add bevy`. I add the `DefaultPlugins` to get basic Bevy functionality.
+
+- When I was about to make my first commit, I realized I needed to check if the project builds before I commit, so I added a quick [pre-commit](./pre-commit) script with instrucitons to soft link it to `.git/hooks/pre-commit` in the file. I also chmod +x'd it so it's ready to go checked-in.
 
 - Analytics is super important, so I am adding the `FrameTimeDiagnosticsPlugin` and `LogDiagnosticsPlugin` plugins to display FPS right away.
     - Adding some logging, profiling and auditing tools would be a good next step, but I'm not going to do that right now.
@@ -28,9 +32,9 @@ The goal is to create one or more Autonomous Mobile Robots (AMR) in the scene th
     - Velocity
     - Acceleration -> Maybe this one is overkill for now. Might not need it.
 
-I create a components folder and add them in.
+    I create a components folder and add them in.
 
-- Time to create some systems. 
+- Time to create some systems:
 
     - First I'll focus on spawning entities. We'll worry about behaviors later. The AMR, we'll just use a cube, a human a cylinder, and obstacles will be cones. This will use the Startup Schedule.
     - Creating the startup system was tricky, I had to use these built-in parameters that were required, and kept causing build issues, but it runs! 
@@ -46,13 +50,13 @@ I create a components folder and add them in.
 
 - Next I'll make the AMR move towards the goal. I'll use Bevy's [eventing system](https://bevy-cheatbook.github.io/programming/events.html) to broadcast a goal. I'll add a simple vector subtraction from current position to the goal. We'll ignore obstacles for now. 
 
-I went a step further and assigned the goal by clicking the mouse. I added the nice ground circle visual from the example. The robot is moving towards a goal, just not the right one atm. In retrospect, the mouse click right now uses window position im pixels, which needs to be converted to world position.
+- I went a step further and assigned the goal by clicking the mouse. I added the nice ground circle visual from the example I linked above. The robot is moving towards a goal, just not the right one atm. In retrospect, the mouse click right now uses window position im pixels, which needs to be converted to world position.
 
 - The last step is to implement collision detection and avoidance. When an object is a certain distance from the AMR, we'll apply a simple avoidance vector by taking the direction to the object and creating a vector perpendicular to it. We'll also ignore applying that avoidance vector if the obstacle is behind us, otherwise we get stuck adjacent to the object we're trying to avoid.
 
-After implementing it, it works decently for how simple it is. Here's a video:
+After implementing it, it works decently for how simple it is. Here's a [video](./human_avoidance.mp4):
 
-<video src="./human_avoidance.mp4" />
+<video src="./human_avoidance.mp4" ></video>
 
 ## Future work
 
