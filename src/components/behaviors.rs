@@ -10,4 +10,4 @@ pub struct Goal {
 }
 
 #[derive(Component)]
-pub struct InCollision(bool);
+pub struct InCollision(pub bool);

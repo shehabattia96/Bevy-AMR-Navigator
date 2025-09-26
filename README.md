@@ -2,7 +2,7 @@
 
 For this project, I am using [Bevy](https://bevy.org/), a game engine written in Rust.
 
-The goal is to create one or more Autonomous Mobile Robots (AMR) in the scene that can navigate while avoiding obstacles and moving humans.
+The goal is to create one or more Autonomous Mobile Robots (AMR) in the scene that can navigate while avoiding obstacles and moving humans. This movement is very simple just a vector subtraction from current position to the goal, if there is an obstacle, move around it by clearing its size (privedged information from the simulation for now).
 
 - This is being built on an M3 Pro with 18GB of RAM.
 
@@ -29,6 +29,18 @@ The goal is to create one or more Autonomous Mobile Robots (AMR) in the scene th
     - Acceleration -> Maybe this one is overkill for now. Might not need it.
 
 I create a components folder and add them in.
+
+- Time to create some systems. 
+
+    - First I'll focus on spawning entities. We'll worry about behaviors later. The AMR, we'll just use a cube, a human a cylinder, and obstacles will be cones. This will use the Startup Schedule.
+    - Creating the startup system was tricky, I had to use these built-in parameters that were required, and kept causing build issues, but it runs! 
+    ```
+    commands: &mut Commands,
+    meshes: &mut ResMut<Assets<Mesh>>,
+    materials: &mut ResMut<Assets<StandardMaterial>>,
+    ```
+
+
 
 ## Misc notes
 - Standards are important: https://bevy-cheatbook.github.io/fundamentals/coords.html

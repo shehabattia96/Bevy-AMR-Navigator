@@ -1,10 +1,10 @@
 use bevy::prelude::*;
 
 #[derive(Component)]
-pub struct Position(Vec3);
+pub struct Position(pub Vec3);
 
 #[derive(Component)]
-pub struct Velocity(Vec3);
+pub struct Velocity(pub Vec3);
 
 #[derive(Component)]
-pub struct Acceleration(Vec3);
+pub struct Acceleration(pub Vec3);

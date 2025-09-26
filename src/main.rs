@@ -2,6 +2,7 @@ use bevy::diagnostic::{FrameTimeDiagnosticsPlugin, LogDiagnosticsPlugin};
 use bevy::prelude::*;
 
 mod components;
+mod systems;
 
 fn main() {
     App::new()
@@ -18,5 +19,8 @@ fn main() {
                 LogDiagnosticsPlugin::default(),
             )
         )
+        .add_systems(Startup, (
+            systems::startup::startup,
+        ))
         .run();
 }
